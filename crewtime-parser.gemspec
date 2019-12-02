@@ -1,11 +1,11 @@
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "crewtime/parser/version"
+require "crewtime/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "crewtime-parser"
-  spec.version       = Crewtime::Parser::VERSION
+  spec.version       = Crewtime::VERSION
   spec.authors       = ["Jens Neuhalfen"]
   spec.email         = ["jens@neuhalfen.name"]
 
@@ -39,4 +39,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.17"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "minitest", "~> 5.0"
+
+  spec.add_runtime_dependency "parslet", "~> 1.8"
 end
