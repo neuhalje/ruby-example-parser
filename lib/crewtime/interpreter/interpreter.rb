@@ -3,6 +3,13 @@ require 'date'
 module Crewtime
   module Interpreter
 
+    # Further business logic (e.g. "start must be before end") 
+    # can be implemented here.
+    # Business logic that spans multiple Intervals is best implemented
+    # one layer above that.
+    #
+    # E.g. "On a given day the sum of all :working_time intervals must be < 10h" would
+    # be implemented by the consumer of TimelineGrammarInterpreter::interpret
     class Interval
       attr_reader :start, :end, :type
 
@@ -17,9 +24,11 @@ module Crewtime
       end
     end
 
-    # current state[input] -> new state
     ERROR_HASH = Hash.new(:error)
 
+    # new_state = STATE_MACHINE[current_state][event]
+    # Given the current state (e.g. :start) and the event (e.g. :coming) the next state will be :at_work
+    # By using :error as default values there is no need for error-special cases
     STATE_MACHINE = {
         :start => {
             :coming => :at_work,
@@ -50,10 +59,7 @@ module Crewtime
       # Gets a list of Events and builds Intervals.
       # Since the business logic can easily described as a
       # finite state machine, this class also implements one.
-      #
-      # A strict prerequisite is that
-      # - timestamps are in order
-
+ 
       def interpret(events)
         state = :start
         last_event = nil
