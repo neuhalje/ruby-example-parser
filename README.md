@@ -73,7 +73,11 @@ The business logic itself is comparably simple and can easily be implemented in 
 
 ![State machine](readme.d/booking_states.png)
 
+The state machine takes care of the following business rules:
+- On a given day between `COMING` and `GOING` there is either `working_time` or `pause_time`.
+- All events must form valid intervals of `working_time`/`pause_time`. Invalid combinations of events must be detected.
 
+In essence, the state machine converts technical `Events` into something the business can work on. Adding more involved logic such as "_On a given day it is not permitted to work more than 10 hours._" or "_After 9 hours of work the employee is eligible for 45 minutes of pause._" can easily be implemented on the list of `Interval`s.
 
 ## Installation
 
