@@ -71,7 +71,7 @@ module Crewtime
           last_event = event
         end
 
-        raise ArgumentError.new("Unexpected end. The last event found was #{event}") unless FINAL_STATES.include?(state)
+        raise ArgumentError.new("Unexpected end. The last event found was #{last_event}") unless FINAL_STATES.include?(state)
         intervals
       end
     end
